@@ -1,29 +1,26 @@
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { products } from "../data/products";
 
 const ProductDetail = () => {
   const { id } = useParams();
 
-  // TEMP DATA (replace later with real data)
-  const product = {
-    name: "Ocean Bloom Crochet Top",
-    price: "₹2,800",
-    image: "/placeholder.svg",
-    description:
-      "Handcrafted crochet top made with premium cotton yarn. Designed for comfort, elegance, and individuality.",
-  };
+  const product = products.find((item) => item.id === id);
+
+  if (!product) {
+    return (
+      <div className="h-screen flex items-center justify-center text-xl">
+        Product not found
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white text-black min-h-screen px-6 md:px-12 py-12 max-w-6xl mx-auto">
 
       <div className="grid md:grid-cols-2 gap-12 items-start">
 
-        {/* IMAGE */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="w-full"
-        >
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <img
             src={product.image}
             alt={product.name}
@@ -31,7 +28,6 @@ const ProductDetail = () => {
           />
         </motion.div>
 
-        {/* INFO */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -47,7 +43,6 @@ const ProductDetail = () => {
             {product.description}
           </p>
 
-          {/* WHATSAPP BUTTON */}
           <a
             href={`https://wa.me/919819716635?text=${encodeURIComponent(
               `Hi! 👋 I'm interested in "${product.name}" priced at ${product.price}. Can you share more details?`
@@ -59,7 +54,6 @@ const ProductDetail = () => {
             Order via WhatsApp
           </a>
 
-          {/* EXTRA DETAILS */}
           <div className="mt-10 space-y-3 text-sm text-gray-500">
             <p>• Handmade with premium yarn</p>
             <p>• Custom sizing available</p>
@@ -69,14 +63,13 @@ const ProductDetail = () => {
 
       </div>
 
-      {/* BRAND STORY */}
       <section className="mt-24 text-center max-w-2xl mx-auto">
         <h2 className="text-2xl font-serif mb-4">
           Crafted by Hand, Not Mass Produced
         </h2>
         <p className="text-gray-600 text-sm leading-relaxed">
           Every piece is individually crocheted with attention to detail,
-          making each item truly unique. No two are ever the same.
+          making each item truly unique.
         </p>
       </section>
 
