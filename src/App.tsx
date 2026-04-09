@@ -17,28 +17,38 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/shop-crochet" element={<ShopCrochet />} />
-          <Route path="/art-gallery" element={<ArtGallery />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/art/:id" element={<ArtDetail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-        <WhatsAppButton />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <BrowserRouter>
+          <div className="min-h-screen flex flex-col">
 
-export default App;
+            <Header />
+
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/shop-crochet" element={<ShopCrochet />} />
+                <Route path="/art-gallery" element={<ArtGallery />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/art/:id" element={<ArtDetail />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+
+            <Footer />
+            <WhatsAppButton />
+
+          </div>
+
+          <Toaster />
+          <Sonner />
+
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
