@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/hunar-birds-logo.png"; // make sure filename matches
+import logo from "@/assets/hunar-birds-logo.png";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -24,7 +24,7 @@ const Header = () => {
           <img
             src={logo}
             alt="Hunar Birds"
-            className="h-8 md:h-10 object-contain"
+            className="h-10 md:h-12 object-contain"
           />
         </Link>
 
