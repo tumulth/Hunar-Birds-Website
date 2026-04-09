@@ -47,10 +47,17 @@ const ProductDetail = () => {
             {product.description}
           </p>
 
-          {/* BUTTON */}
-          <button className="border px-8 py-3 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition w-fit">
-            Enquire on WhatsApp
-          </button>
+          {/* WHATSAPP BUTTON */}
+          <a
+            href={`https://wa.me/919819716635?text=${encodeURIComponent(
+              `Hi! 👋 I'm interested in "${product.name}" priced at ${product.price}. Can you share more details?`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-black text-white px-8 py-3 text-xs tracking-widest uppercase hover:opacity-90 transition w-fit"
+          >
+            Order via WhatsApp
+          </a>
 
           {/* EXTRA DETAILS */}
           <div className="mt-10 space-y-3 text-sm text-gray-500">
@@ -62,7 +69,7 @@ const ProductDetail = () => {
 
       </div>
 
-      {/* RELATED / STORY */}
+      {/* BRAND STORY */}
       <section className="mt-24 text-center max-w-2xl mx-auto">
         <h2 className="text-2xl font-serif mb-4">
           Crafted by Hand, Not Mass Produced
