@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/hunar-birds-logo.png";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -19,10 +18,10 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20 px-4 md:px-6">
 
-        {/* LOGO (VISIBLE FIXED) */}
+        {/* LOGO (FROM PUBLIC FOLDER) */}
         <Link to="/" className="flex items-center bg-white px-2 py-1 rounded-md">
           <img
-            src={logo}
+            src="/hunar-birds-logo.png"
             alt="Hunar Birds"
             className="h-12 md:h-14 object-contain"
           />
