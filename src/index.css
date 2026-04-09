@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 220 15% 20%;
+
+    --card: 40 30% 95%;
+    --card-foreground: 220 15% 20%;
+
+    --popover: 40 33% 97%;
+    --popover-foreground: 220 15% 20%;
+
+    --primary: 12 52% 55%;
+    --primary-foreground: 40 33% 97%;
+
+    --secondary: 40 20% 90%;
+    --secondary-foreground: 220 15% 20%;
+
+    --muted: 40 15% 92%;
+    --muted-foreground: 220 10% 46%;
+
+    --accent: 100 18% 56%;
+    --accent-foreground: 220 15% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 33% 97%;
+
+    --border: 30 15% 85%;
+    --input: 30 15% 85%;
+    --ring: 12 52% 55%;
+
+    --radius: 0.375rem;
+
+    --terracotta: 12 52% 55%;
+    --terracotta-light: 12 52% 70%;
+    --terracotta-dark: 12 52% 40%;
+    --ivory: 40 33% 97%;
+    --ivory-dark: 40 20% 90%;
+    --slate: 220 15% 35%;
+    --slate-light: 220 10% 46%;
+    --sage: 100 18% 56%;
+    --sage-light: 100 18% 75%;
+    --warm-brown: 25 30% 25%;
+
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+
+    --sidebar-background: 40 30% 95%;
+    --sidebar-foreground: 220 15% 20%;
+    --sidebar-primary: 12 52% 55%;
+    --sidebar-primary-foreground: 40 33% 97%;
+    --sidebar-accent: 40 20% 90%;
+    --sidebar-accent-foreground: 220 15% 20%;
+    --sidebar-border: 30 15% 85%;
+    --sidebar-ring: 12 52% 55%;
+  }
+
+  .dark {
+    --background: 220 15% 10%;
+    --foreground: 40 20% 90%;
+
+    --card: 220 15% 13%;
+    --card-foreground: 40 20% 90%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 40 20% 90%;
+
+    --primary: 12 52% 60%;
+    --primary-foreground: 220 15% 10%;
+
+    --secondary: 220 12% 18%;
+    --secondary-foreground: 40 20% 90%;
+
+    --muted: 220 12% 18%;
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 100 18% 40%;
+    --accent-foreground: 40 20% 90%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 40 20% 90%;
+
+    --border: 220 12% 20%;
+    --input: 220 12% 20%;
+    --ring: 12 52% 60%;
+
+    --sidebar-background: 220 15% 10%;
+    --sidebar-foreground: 40 20% 90%;
+    --sidebar-primary: 12 52% 60%;
+    --sidebar-primary-foreground: 220 15% 10%;
+    --sidebar-accent: 220 12% 18%;
+    --sidebar-accent-foreground: 40 20% 90%;
+    --sidebar-border: 220 12% 20%;
+    --sidebar-ring: 12 52% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+}
