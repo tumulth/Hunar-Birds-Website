@@ -1,0 +1,74 @@
+export const products = [
+  {
+    id: "ocean-bloom-crochet-top",
+    name: "Ocean Bloom Crochet Top",
+    price: "₹2,800",
+    image: "/products/ocean-bloom-crochet-top/1.png",
+  },
+  {
+    id: "terracotta-lace-headband",
+    name: "Terracotta Lace Headband",
+    price: "₹900",
+    image: "/products/terracotta-lace-headband/1.png",
+  },
+  {
+    id: "sunbeam-baby-blanket",
+    name: "Sunbeam Baby Blanket",
+    price: "₹1,800",
+    image: "/products/sunbeam-baby-blanket/1.png",
+  },
+  {
+    id: "mauve-mosaic-blanket",
+    name: "Mauve Mosaic Blanket",
+    price: "₹2,200",
+    image: "/products/mauve-mosaic-blanket/1.png",
+  },
+  {
+    id: "ocean-breeze-bandana",
+    name: "Ocean Breeze Bandana",
+    price: "₹700",
+    image: "/products/ocean-breeze-bandana/1.png",
+  },
+  {
+    id: "oatmeal-knit-fingerless-mitts",
+    name: "Oatmeal Knit Fingerless Mitts",
+    price: "₹850",
+    image: "/products/oatmeal-knit-fingerless-mitts/1.png",
+  },
+  {
+    id: "lemon-grove-table-runner",
+    name: "Lemon Grove Table Runner",
+    price: "₹1,500",
+    image: "/products/lemon-grove-table-runner/1.png",
+  },
+  {
+    id: "sunloom-bloom-cushion-cover",
+    name: "Sunloom Bloom Cushion Cover",
+    price: "₹1,200",
+    image: "/products/sunloom-bloom-cushion-cover/1.png",
+  },
+  {
+    id: "amethyst-granny-square-coaster-set",
+    name: "Amethyst Granny Square Coaster Set",
+    price: "₹600",
+    image: "/products/amethyst-granny-square-coaster-set/1.png",
+  },
+  {
+    id: "heritage-floral-knit-skirt",
+    name: "Heritage Floral Knit Skirt",
+    price: "₹3,200",
+    image: "/products/heritage-floral-knit-skirt/1.png",
+  },
+  {
+    id: "handmade-crochet-baby-frock-set",
+    name: "Handmade Crochet Baby Frock Set",
+    price: "₹2,000",
+    image: "/products/handmade-crochet-baby-frock-set/1.png",
+  },
+  {
+    id: "autumn-hug-fingerless-mitts",
+    name: "Autumn Hug Fingerless Mitts",
+    price: "₹850",
+    image: "/products/autumn-hug-fingerless-mitts/1.png",
+  },
+];
