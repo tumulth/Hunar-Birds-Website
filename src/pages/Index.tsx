@@ -36,210 +36,71 @@ const fadeUp = {
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      {/* Hero Split Section */}
+    <div className="min-h-screen bg-[#fafafa]">
+
+      {/* Premium Hero */}
       <section className="relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[85vh]">
-          {/* Crochet Side */}
-          <Link to="/shop-crochet" className="relative group overflow-hidden cursor-pointer">
-            <div className="absolute inset-0">
-              <img
-                src={heroCrochet}
-                alt="Handmade crochet clothing and accessories by Hunar Birds"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="eager"
-              />
-              <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/40 transition-colors duration-500" />
-            </div>
-            <div className="relative z-10 flex flex-col items-center justify-center h-full min-h-[42vh] md:min-h-[85vh] px-8 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary-foreground/80 mb-3">
-                  The Weaver's Nest
-                </p>
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
-                  Crochet
-                </h2>
-                <p className="font-sans text-sm text-primary-foreground/80 max-w-xs mx-auto mb-6">
-                  Custom-fit handmade crochet wearables & home décor crafted with love
-                </p>
-                <Button variant="hero-outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground">
-                  Explore Collection
-                </Button>
-              </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[90vh]">
+
+          <Link to="/shop-crochet" className="relative group overflow-hidden">
+            <img src={heroCrochet} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50" />
+            <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-6">
+              <p className="text-white/70 text-xs tracking-[0.3em] mb-3 uppercase">The Weaver's Nest</p>
+              <h2 className="text-white text-5xl md:text-6xl font-serif mb-4">Crochet</h2>
+              <p className="text-white/80 max-w-sm mb-6">Handmade wearable pieces crafted with detail and intention.</p>
+              <Button className="rounded-full px-6 py-3 bg-white text-black">Shop Collection</Button>
             </div>
           </Link>
 
-          {/* Art Side */}
-          <Link to="/art-gallery" className="relative group overflow-hidden cursor-pointer">
-            <div className="absolute inset-0">
-              <img
-                src={heroArt}
-                alt="Original fine art paintings and portraits by Hunar Birds"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="eager"
-              />
-              <div className="absolute inset-0 bg-foreground/30 group-hover:bg-foreground/40 transition-colors duration-500" />
-            </div>
-            <div className="relative z-10 flex flex-col items-center justify-center h-full min-h-[42vh] md:min-h-[85vh] px-8 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <p className="font-sans text-xs uppercase tracking-[0.3em] text-primary-foreground/80 mb-3">
-                  The Artist's Studio
-                </p>
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
-                  Fine Art
-                </h2>
-                <p className="font-sans text-sm text-primary-foreground/80 max-w-xs mx-auto mb-6">
-                  Original paintings & fine art prints — landscapes, portraits & more
-                </p>
-                <Button variant="hero-outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground">
-                  View Gallery
-                </Button>
-              </motion.div>
+          <Link to="/art-gallery" className="relative group overflow-hidden">
+            <img src={heroArt} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50" />
+            <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-6">
+              <p className="text-white/70 text-xs tracking-[0.3em] mb-3 uppercase">The Artist's Studio</p>
+              <h2 className="text-white text-5xl md:text-6xl font-serif mb-4">Fine Art</h2>
+              <p className="text-white/80 max-w-sm mb-6">Original paintings and expressive artworks.</p>
+              <Button className="rounded-full px-6 py-3 bg-white text-black">View Gallery</Button>
             </div>
           </Link>
+
         </div>
-      </section>
-
-      {/* H1 & Intro */}
-      <section className="py-20 md:py-28 text-center px-4">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={fadeUp}
-          custom={0}
-        >
-          <h1 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-6 max-w-3xl mx-auto leading-tight">
-            Handmade Crochet & Original Art from India
-          </h1>
-          <p className="font-sans text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            At Hunar Birds, every stitch is intentional and every brushstroke tells a story.
-            We create premium handmade crochet clothing, accessories, and one-of-a-kind fine art —
-            all crafted with love and shipped from India.
-          </p>
-        </motion.div>
       </section>
 
       {/* Categories */}
-      <section className="pb-20 md:pb-28 px-4">
-        <div className="container mx-auto">
-          <motion.h2
-            className="font-serif text-2xl md:text-3xl font-semibold text-center mb-14 text-foreground"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0}
-          >
-            Shop by Category
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {categories.map((cat, i) => (
-              <motion.div
-                key={cat.title}
-                className="bg-card rounded-lg p-8 hover:shadow-lg transition-shadow duration-300 border border-border"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i}
-              >
-                <h3 className="font-serif text-xl font-semibold text-foreground mb-2">{cat.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{cat.description}</p>
-                <p className="text-primary font-sans font-semibold text-sm mb-4">{cat.price}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {cat.items.map((item) => (
-                    <span
-                      key={item}
-                      className="text-xs font-sans bg-secondary text-secondary-foreground px-2 py-1 rounded-sm"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <Link to="/shop-crochet">
-                  <Button variant="hero" size="sm" className="w-full">
-                    Browse
-                  </Button>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+      <section className="py-20 px-6 md:px-12 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-serif text-center mb-12">Shop by Category</h2>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={cat.title}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              custom={i}
+              className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition"
+            >
+              <h3 className="text-xl font-serif mb-2">{cat.title}</h3>
+              <p className="text-gray-500 text-sm mb-3">{cat.description}</p>
+              <p className="font-semibold mb-4">{cat.price}</p>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {cat.items.map((item) => (
+                  <span key={item} className="text-xs bg-gray-100 px-3 py-1 rounded-full">
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <Link to="/shop-crochet">
+                <Button className="w-full rounded-full">Browse</Button>
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Trust Banner */}
-      <section className="bg-secondary py-16 px-4">
-        <div className="container mx-auto text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0}
-          >
-            <h2 className="font-serif text-2xl md:text-3xl font-semibold text-foreground mb-4">
-              Crafted with Care, Delivered with Love
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed mb-8">
-              Every item is handmade to order with a 7–14 day crafting period. We take pride in our work
-              and stand behind every piece that leaves our studio.
-            </p>
-            <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-2xl">✋</span>
-                <span className="font-sans font-medium">100% Handmade</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-2xl">📏</span>
-                <span className="font-sans font-medium">Custom Fit</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-2xl">🇮🇳</span>
-                <span className="font-sans font-medium">Made in India</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-2xl">🎨</span>
-                <span className="font-sans font-medium">Original Art</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 md:py-28 text-center px-4">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          custom={0}
-        >
-          <h2 className="font-serif text-2xl md:text-4xl font-bold text-foreground mb-4">
-            Ready to Own Something Unique?
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-md mx-auto text-sm">
-            Browse our handmade collections or commission a custom piece.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/shop-crochet">
-              <Button variant="hero">Shop Crochet</Button>
-            </Link>
-            <Link to="/art-gallery">
-              <Button variant="hero-outline">View Art Gallery</Button>
-            </Link>
-          </div>
-        </motion.div>
-      </section>
     </div>
   );
 };
