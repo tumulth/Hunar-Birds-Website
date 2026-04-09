@@ -43,24 +43,48 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-[90vh]">
 
           <Link to="/shop-crochet" className="relative group overflow-hidden">
-            <img src={heroCrochet} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50" />
+            <img
+              src={heroCrochet}
+              alt="Handmade crochet products"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition" />
             <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-6">
-              <p className="text-white/70 text-xs tracking-[0.3em] mb-3 uppercase">The Weaver's Nest</p>
-              <h2 className="text-white text-5xl md:text-6xl font-serif mb-4">Crochet</h2>
-              <p className="text-white/80 max-w-sm mb-6">Handmade wearable pieces crafted with detail and intention.</p>
-              <Button className="rounded-full px-6 py-3 bg-white text-black">Shop Collection</Button>
+              <p className="text-white/70 text-xs tracking-[0.3em] mb-3 uppercase">
+                The Weaver's Nest
+              </p>
+              <h2 className="text-white text-5xl md:text-6xl font-serif mb-4">
+                Crochet
+              </h2>
+              <p className="text-white/80 max-w-sm mb-6">
+                Handmade wearable pieces crafted with detail and intention.
+              </p>
+              <Button className="rounded-full px-6 py-3 bg-white text-black hover:bg-white/90">
+                Shop Collection
+              </Button>
             </div>
           </Link>
 
           <Link to="/art-gallery" className="relative group overflow-hidden">
-            <img src={heroArt} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50" />
+            <img
+              src={heroArt}
+              alt="Fine art paintings"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition" />
             <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-6">
-              <p className="text-white/70 text-xs tracking-[0.3em] mb-3 uppercase">The Artist's Studio</p>
-              <h2 className="text-white text-5xl md:text-6xl font-serif mb-4">Fine Art</h2>
-              <p className="text-white/80 max-w-sm mb-6">Original paintings and expressive artworks.</p>
-              <Button className="rounded-full px-6 py-3 bg-white text-black">View Gallery</Button>
+              <p className="text-white/70 text-xs tracking-[0.3em] mb-3 uppercase">
+                The Artist's Studio
+              </p>
+              <h2 className="text-white text-5xl md:text-6xl font-serif mb-4">
+                Fine Art
+              </h2>
+              <p className="text-white/80 max-w-sm mb-6">
+                Original paintings and expressive artworks.
+              </p>
+              <Button className="rounded-full px-6 py-3 bg-white text-black hover:bg-white/90">
+                View Gallery
+              </Button>
             </div>
           </Link>
 
@@ -69,7 +93,9 @@ const Index = () => {
 
       {/* Categories */}
       <section className="py-20 px-6 md:px-12 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-serif text-center mb-12">Shop by Category</h2>
+        <h2 className="text-3xl font-serif text-center mb-12">
+          Shop by Category
+        </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
           {categories.map((cat, i) => (
@@ -79,7 +105,7 @@ const Index = () => {
               initial="hidden"
               whileInView="visible"
               custom={i}
-              className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition"
+              className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl hover:scale-[1.02] transition duration-300"
             >
               <h3 className="text-xl font-serif mb-2">{cat.title}</h3>
               <p className="text-gray-500 text-sm mb-3">{cat.description}</p>
@@ -87,14 +113,19 @@ const Index = () => {
 
               <div className="flex flex-wrap gap-2 mb-6">
                 {cat.items.map((item) => (
-                  <span key={item} className="text-xs bg-gray-100 px-3 py-1 rounded-full">
+                  <span
+                    key={item}
+                    className="text-xs bg-gray-100 px-3 py-1 rounded-full"
+                  >
                     {item}
                   </span>
                 ))}
               </div>
 
               <Link to="/shop-crochet">
-                <Button className="w-full rounded-full">Browse</Button>
+                <Button className="w-full rounded-full">
+                  Browse
+                </Button>
               </Link>
             </motion.div>
           ))}
