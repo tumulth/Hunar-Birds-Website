@@ -19,6 +19,7 @@ const ShopCrochet = () => {
               <div className="overflow-hidden rounded-xl">
                 <img
                   src={product.image}
+                  onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
                   className="w-full h-[350px] object-cover group-hover:scale-105 transition duration-500"
                 />
               </div>
