@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/hunar-birds-logo.png"; // make sure filename matches
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -17,10 +18,17 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4">
-        <Link to="/" className="font-serif text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-          Hunar <span className="text-primary">Birds</span>
+
+        {/* LOGO */}
+        <Link to="/" className="flex items-center">
+          <img
+            src={logo}
+            alt="Hunar Birds"
+            className="h-8 md:h-10 object-contain"
+          />
         </Link>
 
+        {/* NAV */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
@@ -33,10 +41,12 @@ const Header = () => {
           ))}
         </nav>
 
+        {/* RIGHT SIDE */}
         <div className="flex items-center gap-4">
           <button className="text-foreground hover:text-primary transition-colors" aria-label="Shopping bag">
             <ShoppingBag className="w-5 h-5" />
           </button>
+
           <button
             className="md:hidden text-foreground"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -45,8 +55,10 @@ const Header = () => {
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+
       </div>
 
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.nav
@@ -70,6 +82,7 @@ const Header = () => {
           </motion.nav>
         )}
       </AnimatePresence>
+
     </header>
   );
 };
