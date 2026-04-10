@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { buildWhatsAppUrl } from "@/data/site";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -14,6 +15,13 @@ const navLinks = [
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const customOrderUrl = buildWhatsAppUrl(
+    "Hi Hunar Birds! I would love help with a custom order.",
+  );
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-gray-200">
@@ -49,14 +57,22 @@ const Header = () => {
         </nav>
 
         {/* RIGHT SIDE */}
-        <div className="flex items-center gap-5">
-          <button className="text-gray-700 hover:text-black transition">
-            <ShoppingBag className="w-5 h-5" />
-          </button>
+        <div className="flex items-center gap-4">
+          <a
+            href={customOrderUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden rounded-full border border-black px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-black transition hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:inline-flex"
+          >
+            Custom Order
+          </a>
 
           <button
-            className="md:hidden text-gray-700"
+            className="md:hidden text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? (
               <X className="w-6 h-6" />
@@ -71,6 +87,7 @@ const Header = () => {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -81,12 +98,20 @@ const Header = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-sm tracking-widest uppercase text-gray-600 hover:text-black"
+                  className="text-sm tracking-widest uppercase text-gray-600 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
                 >
                   {link.label}
                 </Link>
               ))}
+
+              <a
+                href={customOrderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-black px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-black transition hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                Custom Order
+              </a>
             </div>
           </motion.div>
         )}

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import { products } from "../data/products";
+import { useState } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -9,69 +9,118 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <div className="h-screen flex items-center justify-center text-xl">
+      <div className="h-screen flex items-center justify-center">
         Product not found
       </div>
     );
   }
 
+  // SAFETY: fallback if images missing
+  const images =
+    product.images && product.images.length > 0
+      ? product.images
+      : ["/placeholder.svg"];
+
+  const [activeImage, setActiveImage] = useState(images[0]);
+  const [selectedSize, setSelectedSize] = useState("");
+
   return (
-    <div className="bg-white text-black min-h-screen px-6 md:px-12 py-12 max-w-6xl mx-auto">
+    <div className="bg-white text-black min-h-screen px-6 md:px-16 py-10">
 
-      <div className="grid md:grid-cols-2 gap-12 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-7xl mx-auto">
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-[500px] object-cover rounded-xl"
-          />
-        </motion.div>
+        {/* LEFT - GALLERY */}
+        <div className="flex gap-4">
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col justify-center"
-        >
-          <h1 className="text-3xl md:text-4xl font-serif mb-4">
+          {/* THUMBNAILS */}
+          <div className="flex flex-col gap-3">
+            {images.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt="thumb"
+                onClick={() => setActiveImage(img)}
+                className={`w-16 h-20 object-cover cursor-pointer border ${
+                  activeImage === img ? "border-black" : "border-gray-200"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* MAIN IMAGE */}
+          <div className="flex-1 overflow-hidden">
+            <img
+              src={activeImage}
+              alt={product.name}
+              className="w-full h-[600px] object-cover transition duration-300 hover:scale-105"
+            />
+          </div>
+
+        </div>
+
+        {/* RIGHT - INFO */}
+        <div className="max-w-md">
+
+          <p className="text-xs tracking-widest text-gray-400 uppercase mb-2">
+            {product.category}
+          </p>
+
+          <h1 className="text-2xl font-medium mb-2">
             {product.name}
           </h1>
 
-          <p className="text-xl mb-6">{product.price}</p>
+          <p className="text-lg mb-6">
+            {product.price}
+          </p>
 
-          <p className="text-gray-600 leading-relaxed mb-8">
+          <p className="text-sm text-gray-600 leading-relaxed mb-8">
             {product.description}
           </p>
 
+          {/* SIZE */}
+          <div className="mb-8">
+            <p className="text-xs tracking-widest mb-2">SIZE</p>
+            <div className="flex gap-3 text-sm">
+              {["XS", "S", "M", "L"].map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`border px-3 py-1 transition ${
+                    selectedSize === size
+                      ? "border-black bg-black text-white"
+                      : "border-gray-300 hover:border-black"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* WHATSAPP CTA */}
           <a
             href={`https://wa.me/919819716635?text=${encodeURIComponent(
-              `Hi! 👋 I'm interested in "${product.name}" priced at ${product.price}. Can you share more details?`
+              `Hi! 👋 I'm interested in "${product.name}" priced at ${product.price}${
+                selectedSize ? ` (Size: ${selectedSize})` : ""
+              }.`
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-black text-white px-8 py-3 text-xs tracking-widest uppercase hover:opacity-90 transition w-fit"
+            className="block w-full text-center border border-black py-3 text-sm tracking-widest hover:bg-black hover:text-white transition"
           >
-            Order via WhatsApp
+            ORDER VIA WHATSAPP
           </a>
 
-          <div className="mt-10 space-y-3 text-sm text-gray-500">
+          {/* DETAILS */}
+          <div className="mt-10 border-t pt-6 text-sm text-gray-600 space-y-3">
             <p>• Handmade with premium yarn</p>
-            <p>• Custom sizing available</p>
+            <p>• Made to order (3–5 days)</p>
             <p>• Ships across India</p>
           </div>
-        </motion.div>
+
+        </div>
 
       </div>
-
-      <section className="mt-24 text-center max-w-2xl mx-auto">
-        <h2 className="text-2xl font-serif mb-4">
-          Crafted by Hand, Not Mass Produced
-        </h2>
-        <p className="text-gray-600 text-sm leading-relaxed">
-          Every piece is individually crocheted with attention to detail,
-          making each item truly unique.
-        </p>
-      </section>
 
     </div>
   );

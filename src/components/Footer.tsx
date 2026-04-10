@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { buildWhatsAppUrl, siteConfig } from "@/data/site";
 
 const Footer = () => (
   <footer className="bg-foreground text-primary-foreground py-16">
@@ -18,7 +19,7 @@ const Footer = () => (
           <ul className="space-y-2 text-sm opacity-70">
             <li><Link to="/shop-crochet" className="hover:opacity-100 transition-opacity">Crochet Wearables</Link></li>
             <li><Link to="/shop-crochet" className="hover:opacity-100 transition-opacity">Accessories</Link></li>
-            <li><Link to="/shop-crochet" className="hover:opacity-100 transition-opacity">Home Nesting</Link></li>
+            <li><Link to="/shop-crochet" className="hover:opacity-100 transition-opacity">Home Decor</Link></li>
             <li><Link to="/art-gallery" className="hover:opacity-100 transition-opacity">Art Gallery</Link></li>
           </ul>
         </div>
@@ -28,16 +29,17 @@ const Footer = () => (
           <ul className="space-y-2 text-sm opacity-70">
             <li><Link to="/contact" className="hover:opacity-100 transition-opacity">Contact Us</Link></li>
             <li><Link to="/about" className="hover:opacity-100 transition-opacity">About Hunar Birds</Link></li>
-            <li><span className="cursor-default">Shipping & Returns</span></li>
-            <li><span className="cursor-default">Size Guide</span></li>
+            <li><Link to="/shipping-returns" className="hover:opacity-100 transition-opacity">Shipping & Returns</Link></li>
+            <li><Link to="/size-guide" className="hover:opacity-100 transition-opacity">Size Guide</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-sans text-xs uppercase tracking-widest mb-4 opacity-50">Connect</h4>
           <ul className="space-y-2 text-sm opacity-70">
-            <li><a href="https://instagram.com" target="_blank" rel="noopener" className="hover:opacity-100 transition-opacity">Instagram</a></li>
-            <li><a href="https://wa.me/" target="_blank" rel="noopener" className="hover:opacity-100 transition-opacity">WhatsApp</a></li>
+            <li><a href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Instagram</a></li>
+            <li><a href={buildWhatsAppUrl("Hi Hunar Birds! I would love to know more about your handmade pieces.")} target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">WhatsApp</a></li>
+            <li><a href={`mailto:${siteConfig.email}`} className="hover:opacity-100 transition-opacity">{siteConfig.email}</a></li>
           </ul>
         </div>
       </div>
