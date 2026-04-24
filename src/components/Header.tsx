@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Heart, Menu, ShoppingBag, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { buildWhatsAppUrl } from "@/data/site";
+import { useShopActions } from "@/context/ShopActionsContext";
 
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Shop Crochet", to: "/shop-crochet" },
   { label: "Art Gallery", to: "/art-gallery" },
+  { label: "Journal", to: "/journal" },
   { label: "About Us", to: "/about" },
   { label: "Contact", to: "/contact" },
 ];
@@ -15,6 +17,7 @@ const navLinks = [
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { favoriteCount, inquiryCount } = useShopActions();
   const customOrderUrl = buildWhatsAppUrl(
     "Hi Hunar Birds! I would love help with a custom order.",
   );
@@ -58,6 +61,32 @@ const Header = () => {
 
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-4">
+          <Link
+            to="/wishlist"
+            aria-label={`Wishlist with ${favoriteCount} saved pieces`}
+            className="relative hidden rounded-full border border-border p-2 text-gray-700 transition hover:border-black hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:inline-flex"
+          >
+            <Heart className="h-4 w-4" />
+            {favoriteCount > 0 && (
+              <span className="absolute -right-2 -top-2 rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                {favoriteCount}
+              </span>
+            )}
+          </Link>
+
+          <Link
+            to="/inquiry-bag"
+            aria-label={`Inquiry bag with ${inquiryCount} pieces`}
+            className="relative hidden rounded-full border border-border p-2 text-gray-700 transition hover:border-black hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:inline-flex"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            {inquiryCount > 0 && (
+              <span className="absolute -right-2 -top-2 rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                {inquiryCount}
+              </span>
+            )}
+          </Link>
+
           <a
             href={customOrderUrl}
             target="_blank"
@@ -103,6 +132,21 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
+
+              <div className="flex gap-3">
+                <Link
+                  to="/wishlist"
+                  className="rounded-full border border-border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-black transition hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  Wishlist {favoriteCount > 0 ? `(${favoriteCount})` : ""}
+                </Link>
+                <Link
+                  to="/inquiry-bag"
+                  className="rounded-full border border-border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-black transition hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  Bag {inquiryCount > 0 ? `(${inquiryCount})` : ""}
+                </Link>
+              </div>
 
               <a
                 href={customOrderUrl}

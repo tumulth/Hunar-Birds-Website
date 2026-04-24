@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Clock3, Palette, Ruler, ShieldCheck, Star, Truck } from "lucide-react";
+import {
+  Clock3,
+  CreditCard,
+  Heart,
+  Palette,
+  Ruler,
+  ShieldCheck,
+  ShoppingBag,
+  Star,
+  Truck,
+} from "lucide-react";
 import ProductCard from "@/components/ProductCard";
+import { useShopActions } from "@/context/ShopActionsContext";
 import {
   categoryLabels,
   formatPrice,
@@ -11,19 +22,84 @@ import {
   getRelatedProducts,
   stockStatusLabels,
 } from "@/data/products";
-import { buildAbsoluteUrl, buildWhatsAppUrl, siteConfig } from "@/data/site";
+import {
+  buildAbsoluteUrl,
+  buildUpiPaymentUrl,
+  buildWhatsAppUrl,
+  siteConfig,
+} from "@/data/site";
 import { useSeo } from "@/hooks/useSeo";
+import { getDeliveryEstimate, getStockBadgeTone } from "@/lib/delivery";
+import { cn } from "@/lib/utils";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
   const product = getProductById(id);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const { addToInquiryBag, isFavorite, toggleFavorite } = useShopActions();
 
   useEffect(() => {
     setActiveImageIndex(0);
     setSelectedSize("");
+    setSelectedColor("");
+    setQuantity(1);
   }, [id]);
+
+  const schema = product
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: product.name,
+        description: product.seoDescription,
+        image: product.images.map((image) => buildAbsoluteUrl(image)),
+        brand: {
+          "@type": "Brand",
+          name: siteConfig.name,
+        },
+        category: categoryLabels[product.category],
+        material: product.materials.join(", "),
+        offers: {
+          "@type": "Offer",
+          url: buildAbsoluteUrl(`/product/${product.id}`),
+          priceCurrency: "INR",
+          price: product.priceInr,
+          availability:
+            product.stockStatus === "ready-to-ship"
+              ? "https://schema.org/InStock"
+              : "https://schema.org/PreOrder",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: product.review.rating,
+          reviewCount: 1,
+        },
+        review: {
+          "@type": "Review",
+          reviewBody: product.review.quote,
+          author: {
+            "@type": "Person",
+            name: product.review.name,
+          },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: product.review.rating,
+          },
+        },
+      }
+    : undefined;
+
+  useSeo({
+    title: product ? `${product.name} | Hunar Birds` : "Product not found | Hunar Birds",
+    description:
+      product?.seoDescription ??
+      "The handmade piece you were looking for is not in the current Hunar Birds collection.",
+    image: product?.images[0],
+    pathname: product ? `/product/${product.id}` : "/shop-crochet",
+    schema,
+  });
 
   if (!product) {
     return (
@@ -48,60 +124,17 @@ const ProductDetailPage = () => {
   const relatedProducts = getRelatedProducts(product);
   const hasSizeOptions = product.sizes.length > 0;
   const rating = getAverageRating(product);
+  const deliveryEstimate = getDeliveryEstimate(product);
+  const saved = isFavorite(product.id);
+  const upiPaymentUrl = buildUpiPaymentUrl(product.priceInr * quantity, product.name);
   const whatsappUrl = buildWhatsAppUrl(
-    `Hi Hunar Birds! I would like to order ${product.name} for ${formatPrice(product.priceInr)}${
+    `Hi Hunar Birds! I would like to order ${quantity} x ${product.name} for ${formatPrice(product.priceInr)} each${
       selectedSize ? ` in size ${selectedSize}` : ""
-    }. Please guide me on the next step.`,
+    }${selectedColor ? ` in ${selectedColor}` : ""}. Please guide me on the next step.`,
   );
-
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    description: product.seoDescription,
-    image: product.images.map((image) => buildAbsoluteUrl(image)),
-    brand: {
-      "@type": "Brand",
-      name: siteConfig.name,
-    },
-    category: categoryLabels[product.category],
-    material: product.materials.join(", "),
-    offers: {
-      "@type": "Offer",
-      url: buildAbsoluteUrl(`/product/${product.id}`),
-      priceCurrency: "INR",
-      price: product.priceInr,
-      availability:
-        product.stockStatus === "ready-to-ship"
-          ? "https://schema.org/InStock"
-          : "https://schema.org/PreOrder",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: rating,
-      reviewCount: 1,
-    },
-    review: {
-      "@type": "Review",
-      reviewBody: product.review.quote,
-      author: {
-        "@type": "Person",
-        name: product.review.name,
-      },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: product.review.rating,
-      },
-    },
-  };
-
-  useSeo({
-    title: `${product.name} | Hunar Birds`,
-    description: product.seoDescription,
-    image: product.images[0],
-    pathname: `/product/${product.id}`,
-    schema,
-  });
+  const paymentHelpUrl = buildWhatsAppUrl(
+    `Hi Hunar Birds! Please share the Razorpay or UPI payment link for ${quantity} x ${product.name}.`,
+  );
 
   return (
     <div className="min-h-screen bg-background px-6 py-10 md:px-10 md:py-14">
@@ -161,7 +194,7 @@ const ProductDetailPage = () => {
                 <span className="rounded-full bg-secondary px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-secondary-foreground">
                   {categoryLabels[product.category]}
                 </span>
-                <span className="rounded-full bg-black px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-white">
+                <span className={cn("rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.22em]", getStockBadgeTone(product.stockStatus))}>
                   {stockStatusLabels[product.stockStatus]}
                 </span>
                 {product.bestSeller && (
@@ -217,6 +250,70 @@ const ProductDetailPage = () => {
                 </div>
               )}
 
+              <div className="mt-8 space-y-3">
+                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                  Color preference
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {product.colorOptions.map((color) => (
+                    <button
+                      key={color}
+                      type="button"
+                      onClick={() => setSelectedColor(color)}
+                      className={`rounded-full border px-4 py-2 text-sm transition ${
+                        selectedColor === color
+                          ? "border-black bg-black text-white"
+                          : "border-border bg-background text-foreground hover:border-black"
+                      }`}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8 flex flex-wrap items-end gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="product-quantity" className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                    Quantity
+                  </label>
+                  <input
+                    id="product-quantity"
+                    type="number"
+                    min="1"
+                    max="20"
+                    value={quantity}
+                    onChange={(event) => setQuantity(Math.max(1, Number(event.target.value) || 1))}
+                    className="h-11 w-24 rounded-full border border-input bg-background px-4 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => toggleFavorite(product.id)}
+                  className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 text-sm font-medium text-foreground transition hover:border-black hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  <Heart className={cn("h-4 w-4", saved && "fill-current text-primary")} />
+                  {saved ? "Saved" : "Save favorite"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    addToInquiryBag({
+                      productId: product.id,
+                      quantity,
+                      size: selectedSize || undefined,
+                      color: selectedColor || undefined,
+                    })
+                  }
+                  className="inline-flex h-11 items-center gap-2 rounded-full border border-black px-5 text-sm font-medium text-foreground transition hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  <ShoppingBag className="h-4 w-4" />
+                  Add to inquiry bag
+                </button>
+              </div>
+
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-[1.5rem] bg-secondary/60 p-4">
                   <div className="flex items-center gap-2 text-sm font-medium text-foreground">
@@ -229,23 +326,34 @@ const ProductDetailPage = () => {
                 </div>
                 <div className="rounded-[1.5rem] bg-secondary/60 p-4">
                   <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                    <Palette className="h-4 w-4" />
-                    Color options
+                    <Truck className="h-4 w-4" />
+                    {deliveryEstimate.label}
                   </div>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    {product.colorOptions.join(", ")}
+                    {deliveryEstimate.dispatch}. {deliveryEstimate.delivery}
                   </p>
                 </div>
               </div>
 
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-black px-6 py-4 text-center text-sm font-medium uppercase tracking-[0.22em] text-white transition hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                Order via WhatsApp
-              </a>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-black px-6 py-4 text-center text-sm font-medium uppercase tracking-[0.22em] text-white transition hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  Order via WhatsApp
+                </a>
+                <a
+                  href={siteConfig.razorpayPaymentLink || upiPaymentUrl || paymentHelpUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-black px-6 py-4 text-center text-sm font-medium uppercase tracking-[0.18em] text-foreground transition hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  <CreditCard className="h-4 w-4" />
+                  Pay link
+                </a>
+              </div>
 
               <p className="mt-4 text-sm leading-6 text-muted-foreground">
                 {siteConfig.consultationNote}
@@ -273,18 +381,18 @@ const ProductDetailPage = () => {
 
               <section className="rounded-[2rem] border border-border bg-white/90 p-6 shadow-sm">
                 <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <Truck className="h-4 w-4" />
-                  Shipping and support
+                  <Palette className="h-4 w-4" />
+                  Colors and payment
                 </div>
                 <div className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">
-                  <p>{siteConfig.shippingNote}</p>
-                  <p>{siteConfig.returnPolicyNote}</p>
+                  <p>{product.colorOptions.join(", ")}</p>
+                  <p>{siteConfig.securePaymentNote}</p>
                 </div>
                 <Link
-                  to="/shipping-returns"
+                  to="/inquiry-bag"
                   className="mt-4 inline-flex text-sm font-medium text-primary transition hover:underline"
                 >
-                  Read shipping and returns
+                  Open inquiry bag
                 </Link>
               </section>
             </div>

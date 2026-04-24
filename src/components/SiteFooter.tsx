@@ -40,6 +40,16 @@ const SiteFooter = () => (
                 Art Gallery
               </Link>
             </li>
+            <li>
+              <Link to="/wishlist" className="transition-opacity hover:opacity-100">
+                Wishlist
+              </Link>
+            </li>
+            <li>
+              <Link to="/inquiry-bag" className="transition-opacity hover:opacity-100">
+                Inquiry Bag
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -66,6 +76,21 @@ const SiteFooter = () => (
             <li>
               <Link to="/size-guide" className="transition-opacity hover:opacity-100">
                 Size Guide
+              </Link>
+            </li>
+            <li>
+              <Link to="/order-tracking" className="transition-opacity hover:opacity-100">
+                Order Tracking
+              </Link>
+            </li>
+            <li>
+              <Link to="/testimonials" className="transition-opacity hover:opacity-100">
+                Reviews
+              </Link>
+            </li>
+            <li>
+              <Link to="/journal" className="transition-opacity hover:opacity-100">
+                Journal
               </Link>
             </li>
           </ul>

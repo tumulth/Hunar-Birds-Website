@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/SiteFooter";
 import ScrollToTop from "./components/ScrollToTop";
 import WhatsAppButton from "./components/FloatingWhatsAppButton";
+import { ShopActionsProvider } from "./context/ShopActionsContext";
 
 const Index = lazy(() => import("./pages/HomePage"));
 const ShopCrochet = lazy(() => import("./pages/ShopCrochet"));
@@ -19,6 +20,12 @@ const Contact = lazy(() => import("./pages/ContactPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const ShippingReturns = lazy(() => import("./pages/ShippingReturns"));
 const SizeGuide = lazy(() => import("./pages/SizeGuide"));
+const Wishlist = lazy(() => import("./pages/WishlistPage"));
+const InquiryBag = lazy(() => import("./pages/InquiryBagPage"));
+const Testimonials = lazy(() => import("./pages/TestimonialsPage"));
+const OrderTracking = lazy(() => import("./pages/OrderTrackingPage"));
+const Journal = lazy(() => import("./pages/JournalPage"));
+const JournalPost = lazy(() => import("./pages/JournalPostPage"));
 
 const queryClient = new QueryClient();
 
@@ -35,41 +42,49 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <BrowserRouter>
-          <ScrollToTop />
-          <div className="min-h-screen flex flex-col">
-            <a
-              href="#main-content"
-              className="sr-only absolute left-4 top-4 z-[60] rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            >
-              Skip to content
-            </a>
+          <ShopActionsProvider>
+            <ScrollToTop />
+            <div className="min-h-screen flex flex-col">
+              <a
+                href="#main-content"
+                className="sr-only absolute left-4 top-4 z-[60] rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              >
+                Skip to content
+              </a>
 
-            <Header />
+              <Header />
 
-            <main id="main-content" className="flex-1">
-              <Suspense fallback={<RouteFallback />}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/shop-crochet" element={<ShopCrochet />} />
-                  <Route path="/art-gallery" element={<ArtGallery />} />
-                  <Route path="/product/:id" element={<ProductDetail />} />
-                  <Route path="/art/:id" element={<ArtDetail />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/shipping-returns" element={<ShippingReturns />} />
-                  <Route path="/size-guide" element={<SizeGuide />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </main>
+              <main id="main-content" className="flex-1">
+                <Suspense fallback={<RouteFallback />}>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/shop-crochet" element={<ShopCrochet />} />
+                    <Route path="/art-gallery" element={<ArtGallery />} />
+                    <Route path="/product/:id" element={<ProductDetail />} />
+                    <Route path="/art/:id" element={<ArtDetail />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/shipping-returns" element={<ShippingReturns />} />
+                    <Route path="/size-guide" element={<SizeGuide />} />
+                    <Route path="/wishlist" element={<Wishlist />} />
+                    <Route path="/inquiry-bag" element={<InquiryBag />} />
+                    <Route path="/testimonials" element={<Testimonials />} />
+                    <Route path="/order-tracking" element={<OrderTracking />} />
+                    <Route path="/journal" element={<Journal />} />
+                    <Route path="/journal/:slug" element={<JournalPost />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+              </main>
 
-            <Footer />
-            <WhatsAppButton />
+              <Footer />
+              <WhatsAppButton />
 
-          </div>
+            </div>
 
-          <Toaster />
-          <Sonner />
+            <Toaster />
+            <Sonner />
+          </ShopActionsProvider>
 
         </BrowserRouter>
       </TooltipProvider>
