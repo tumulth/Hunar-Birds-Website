@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Clock3, Heart, ShoppingBag, Star } from "lucide-react";
+
+import { ArrowRight, Clock3, Heart, ShoppingBag } from "lucide-react";
+
 import { useShopActions } from "@/context/ShopActionsContext";
+
 import {
   categoryLabels,
   formatPrice,
-  getAverageRating,
   getProductImageAlt,
   stockStatusLabels,
   type Product,
 } from "@/data/products";
+
 import { getStockBadgeTone, getStockSummary } from "@/lib/delivery";
+
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -18,14 +22,19 @@ interface ProductCardProps {
   className?: string;
 }
 
-const ProductCard = ({ product, priority = false, className }: ProductCardProps) => {
+const ProductCard = ({
+  product,
+  priority = false,
+  className,
+}: ProductCardProps) => {
   const hasHoverImage = product.images.length > 1;
-  const rating = getAverageRating(product);
+
   const {
     addToInquiryBag,
     isFavorite,
     toggleFavorite,
   } = useShopActions();
+
   const saved = isFavorite(product.id);
 
   return (
@@ -66,7 +75,13 @@ const ProductCard = ({ product, priority = false, className }: ProductCardProps)
                 Best seller
               </span>
             )}
-            <span className={cn("rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]", getStockBadgeTone(product.stockStatus))}>
+
+            <span
+              className={cn(
+                "rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]",
+                getStockBadgeTone(product.stockStatus),
+              )}
+            >
               {stockStatusLabels[product.stockStatus]}
             </span>
           </div>
@@ -78,7 +93,11 @@ const ProductCard = ({ product, priority = false, className }: ProductCardProps)
               event.stopPropagation();
               toggleFavorite(product.id);
             }}
-            aria-label={saved ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+            aria-label={
+              saved
+                ? `Remove ${product.name} from wishlist`
+                : `Save ${product.name} to wishlist`
+            }
             className={cn(
               "absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-foreground shadow-sm transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               saved && "text-primary",
@@ -94,6 +113,7 @@ const ProductCard = ({ product, priority = false, className }: ProductCardProps)
               <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                 {categoryLabels[product.category]}
               </p>
+
               <h3 className="mt-2 font-serif text-xl leading-tight text-foreground">
                 {product.name}
               </h3>
@@ -119,17 +139,9 @@ const ProductCard = ({ product, priority = false, className }: ProductCardProps)
             ))}
           </div>
 
-          <div className="flex items-center justify-between gap-4 border-t border-border/70 pt-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Star className="h-4 w-4 fill-primary text-primary" />
-              <span>{rating.toFixed(1)}</span>
-              <span>{product.review.name}, {product.review.location}</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Clock3 className="h-4 w-4" />
-              <span>{product.leadTime}</span>
-            </div>
+          <div className="flex items-center justify-end gap-2 border-t border-border/70 pt-4 text-sm text-muted-foreground">
+            <Clock3 className="h-4 w-4" />
+            <span>{product.leadTime}</span>
           </div>
 
           <p className="text-xs leading-5 text-muted-foreground">
@@ -142,6 +154,7 @@ const ProductCard = ({ product, priority = false, className }: ProductCardProps)
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
+
                 addToInquiryBag({
                   productId: product.id,
                   quantity: 1,
@@ -152,8 +165,10 @@ const ProductCard = ({ product, priority = false, className }: ProductCardProps)
               <ShoppingBag className="h-4 w-4" />
               Add inquiry
             </button>
+
             <span className="inline-flex items-center gap-2 text-primary">
               View details
+
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </span>
           </div>
