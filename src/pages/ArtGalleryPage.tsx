@@ -64,16 +64,23 @@ const ArtGalleryPage = () => {
               to={`/art/${artwork.id}`}
               className="group overflow-hidden rounded-[2rem] border border-border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
-              <div className={`flex aspect-[4/3] items-end p-6 text-white ${artwork.paletteClassName}`}>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.32em] text-white/70">
-                    {artTypeLabels[artwork.type]}
-                  </p>
-                  <h2 className="mt-3 font-serif text-3xl">{artwork.title}</h2>
-                </div>
+              <div className="aspect-[4/5] overflow-hidden bg-muted">
+                <img
+                  src={artwork.image}
+                  alt={artwork.title}
+                  className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.02]"
+                />
               </div>
 
               <div className="space-y-4 p-6">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
+                    {artTypeLabels[artwork.type]}
+                  </p>
+                  <h2 className="mt-3 font-serif text-3xl text-foreground">
+                    {artwork.title}
+                  </h2>
+                </div>
                 <p className="text-sm leading-7 text-muted-foreground">
                   {artwork.description}
                 </p>

@@ -6,13 +6,13 @@ export interface Artwork {
   id: string;
   title: string;
   type: ArtType;
+  image: string;
   originalPrice: number;
   printPrice: number;
   description: string;
   longDescription: string;
   medium: string;
   printSize: string;
-  paletteClassName: string;
 }
 
 export const artTypeLabels: Record<ArtType, string> = {
@@ -22,88 +22,121 @@ export const artTypeLabels: Record<ArtType, string> = {
 
 export const artworks: Artwork[] = [
   {
-    id: "misty-mountains",
-    title: "Misty Mountains at Dawn",
-    type: "landscape",
-    originalPrice: 25000,
-    printPrice: 3500,
-    description: "Oil on canvas capturing the quiet beauty of mountain mornings.",
-    longDescription:
-      "This original oil painting captures the moment dawn breaks over misty mountain peaks. Layers of translucent color create depth and atmosphere, bringing a slow, meditative mood into the room.",
-    medium: "Oil on canvas",
-    printSize: "A3 fine art print",
-    paletteClassName:
-      "bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.95),_rgba(170,190,205,0.85)_35%,_rgba(82,98,116,0.95))]",
-  },
-  {
-    id: "golden-fields",
-    title: "Golden Fields",
-    type: "landscape",
-    originalPrice: 22000,
-    printPrice: 3000,
-    description: "A warm landscape of fields bathed in soft golden light.",
-    longDescription:
-      "Golden wheat and a wide-open sky create a painting that feels sunlit, warm, and expansive. It works beautifully in calm living spaces that want an earthy glow.",
-    medium: "Acrylic on canvas",
-    printSize: "A3 fine art print",
-    paletteClassName:
-      "bg-[radial-gradient(circle_at_top,_rgba(255,247,214,0.95),_rgba(223,187,109,0.9)_35%,_rgba(124,91,36,0.95))]",
-  },
-  {
-    id: "silent-river",
-    title: "The Silent River",
-    type: "landscape",
-    originalPrice: 28000,
-    printPrice: 4000,
-    description: "A peaceful riverside study of reflections, dusk, and stillness.",
-    longDescription:
-      "This painting explores water, reflection, and muted evening color. The result is a quiet scene that brings a sense of pause and calm to the wall it lives on.",
-    medium: "Oil on canvas",
-    printSize: "A3 fine art print",
-    paletteClassName:
-      "bg-[radial-gradient(circle_at_top,_rgba(234,244,246,0.95),_rgba(128,163,170,0.88)_35%,_rgba(50,76,86,0.95))]",
-  },
-  {
-    id: "village-morning",
-    title: "Village Morning",
-    type: "landscape",
-    originalPrice: 20000,
-    printPrice: 2800,
-    description: "A rustic Indian village slowly waking to the day.",
-    longDescription:
-      "Morning light filters through trees onto village homes in this intimate scene. Warm earth tones and gentle light give it a grounded, nostalgic feel.",
-    medium: "Acrylic on canvas",
-    printSize: "A3 fine art print",
-    paletteClassName:
-      "bg-[radial-gradient(circle_at_top,_rgba(255,236,210,0.95),_rgba(179,127,80,0.88)_35%,_rgba(96,63,37,0.95))]",
-  },
-  {
-    id: "gentle-gaze",
-    title: "The Gentle Gaze",
+    id: "sacred-cow-madhubani",
+    title: "Sacred Cow – Madhubani",
     type: "portrait",
-    originalPrice: 30000,
-    printPrice: 4500,
-    description: "A soulful portrait study focused on quiet emotion and depth.",
+    image: "/paintings/painting-1.jpg",
+    originalPrice: 9999,
+    printPrice: 999,
+    description: "A Madhubani-inspired sacred cow surrounded by lotus motifs and hand-drawn detail.",
     longDescription:
-      "Soft modeling and carefully layered color bring the subject into focus while the background remains atmospheric. The result is intimate, calm, and emotionally direct.",
-    medium: "Oil on canvas",
-    printSize: "A3 fine art print",
-    paletteClassName:
-      "bg-[radial-gradient(circle_at_top,_rgba(246,225,219,0.95),_rgba(173,120,114,0.88)_35%,_rgba(89,56,58,0.95))]",
+      "A sacred cow rests among blooming lotus flowers in this Madhubani-inspired work. Its intricate line work, floral border, and restrained red and green accents celebrate a traditional visual language with warmth and grace.",
+    medium: "Original painting",
+    printSize: "Fine art print",
   },
   {
-    id: "old-craftsman",
-    title: "The Old Craftsman",
+    id: "divine-stillness",
+    title: "Divine Stillness",
     type: "portrait",
-    originalPrice: 35000,
-    printPrice: 5000,
-    description: "A portrait honoring the dignity and history in working hands.",
+    image: "/paintings/painting-2.jpg",
+    originalPrice: 14999,
+    printPrice: 999,
+    description: "A contemplative Shiva lingam composition alive with flowers, texture, and deep color.",
     longDescription:
-      "This portrait pays tribute to years of learned skill. Rich textures and warm tones center the life and labor held in the subject's expression and posture.",
-    medium: "Oil on canvas",
-    printSize: "A3 fine art print",
-    paletteClassName:
-      "bg-[radial-gradient(circle_at_top,_rgba(244,231,218,0.95),_rgba(156,116,79,0.9)_35%,_rgba(81,55,38,0.95))]",
+      "This devotional composition centers a Shiva lingam surrounded by flowers and richly layered colour. The dark, textured setting and luminous offerings create a quiet sense of reverence and stillness.",
+    medium: "Original painting",
+    printSize: "Fine art print",
+  },
+  {
+    id: "royal-companions",
+    title: "Royal Companions",
+    type: "portrait",
+    image: "/paintings/painting-3.jpg",
+    originalPrice: 14999,
+    printPrice: 999,
+    description: "Two peacocks bring regal color and presence to an ornate palace setting.",
+    longDescription:
+      "Two peacocks stand before an ornate palace doorway in this richly coloured work. Jewel-toned feathers, golden architecture, and a calm, balanced composition give the painting a distinctly regal presence.",
+    medium: "Original painting",
+    printSize: "Fine art print",
+  },
+  {
+    id: "three-forms-of-shakti",
+    title: "Three Forms of Shakti",
+    type: "portrait",
+    image: "/paintings/painting-4.jpg",
+    originalPrice: 11999,
+    printPrice: 999,
+    description: "Three powerful forms of Shakti, framed by symbolic detail and a watchful lion.",
+    longDescription:
+      "Three vibrant forms of Shakti fill this symbolic portrait, accompanied by a lion and sacred motifs. The strong colour palette and direct gazes bring energy, strength, and devotional beauty to the composition.",
+    medium: "Original painting",
+    printSize: "Fine art print",
+  },
+  {
+    id: "devotion-of-hanuman",
+    title: "The Devotion of Hanuman",
+    type: "portrait",
+    image: "/paintings/painting-5.jpg",
+    originalPrice: 14999,
+    printPrice: 999,
+    description: "Hanuman in prayer against a radiant red and gold mountain landscape.",
+    longDescription:
+      "Hanuman sits in a moment of devotion beneath a glowing sky marked with the name of Ram. The radiant red, orange, and gold landscape amplifies the work's feeling of faith, strength, and serenity.",
+    medium: "Original painting",
+    printSize: "Fine art print",
+  },
+  {
+    id: "at-the-temple-door",
+    title: "At the Temple Door",
+    type: "portrait",
+    image: "/paintings/painting-6.jpg",
+    originalPrice: 11999,
+    printPrice: 999,
+    description: "A quiet temple-side portrait illuminated by warm arches, bells, and jasmine.",
+    longDescription:
+      "A woman pauses at a temple door, framed by warm arches, hanging bells, and strands of jasmine. The intimate profile and glowing palette create a moment that feels both ceremonial and personal.",
+    medium: "Original painting",
+    printSize: "Fine art print",
+  },
+  {
+    id: "road-to-the-mountains",
+    title: "Road to the Mountains",
+    type: "landscape",
+    image: "/paintings/painting-7.jpg",
+    originalPrice: 9999,
+    printPrice: 999,
+    description: "A winding road travels through bright hills, trees, and distant blue mountains.",
+    longDescription:
+      "A winding road leads through rolling green and blue hills toward the mountains beyond. Its simple, expressive shapes and bright colours invite the eye to travel slowly through a cheerful, open landscape.",
+    medium: "Original painting",
+    printSize: "Fine art print",
+  },
+  {
+    id: "forest-companions",
+    title: "Forest Companions",
+    type: "landscape",
+    image: "/paintings/painting-8.jpg",
+    originalPrice: 4999,
+    printPrice: 999,
+    description: "A hoopoe and sparrows share a sunlit branch in a lush green forest.",
+    longDescription:
+      "A hoopoe and two sparrows gather on a branch surrounded by a lively forest canopy. Deep blues, fresh greens, and warm flashes of orange make this nature scene feel full of movement and companionship.",
+    medium: "Original painting",
+    printSize: "Fine art print",
+  },
+  {
+    id: "the-divine-melody",
+    title: "The Divine Melody",
+    type: "portrait",
+    image: "/paintings/painting-9.jpg",
+    originalPrice: 9999,
+    printPrice: 999,
+    description: "Krishna plays a flute amid a vibrant cascade of flowers and peacock feathers.",
+    longDescription:
+      "Krishna is shown playing the flute amid flowers, rich drapery, and peacock-feather detail. The joyous colour and flowing composition turn this devotional portrait into a celebration of music and beauty.",
+    medium: "Original painting",
+    printSize: "Fine art print",
   },
 ];
 

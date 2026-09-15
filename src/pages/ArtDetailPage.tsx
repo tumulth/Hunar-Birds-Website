@@ -21,6 +21,12 @@ const ArtDetailPage = () => {
     setSelectedType("original");
   }, [id]);
 
+  useSeo({
+    title: artwork ? `${artwork.title} | Hunar Birds Art` : "Artwork not found | Hunar Birds",
+    description: artwork?.description ?? "Browse original paintings and fine art prints from Hunar Birds.",
+    pathname: artwork ? `/art/${artwork.id}` : "/art-gallery",
+  });
+
   if (!artwork) {
     return (
       <div className="flex min-h-screen items-center justify-center px-6">
@@ -44,12 +50,6 @@ const ArtDetailPage = () => {
     `Hi Hunar Birds! I am interested in the ${selectedType} version of ${artwork.title} for ${formatPrice(price)}.`,
   );
 
-  useSeo({
-    title: `${artwork.title} | Hunar Birds Art`,
-    description: artwork.description,
-    pathname: `/art/${artwork.id}`,
-  });
-
   return (
     <div className="min-h-screen bg-background px-6 py-12 md:px-10">
       <div className="mx-auto max-w-7xl space-y-12">
@@ -65,22 +65,19 @@ const ArtDetailPage = () => {
           <span className="text-foreground">{artwork.title}</span>
         </nav>
 
-        <section className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={`flex aspect-[4/3] items-end rounded-[2rem] border border-border p-8 text-white shadow-sm ${artwork.paletteClassName}`}>
-            <div>
-              <p className="text-xs uppercase tracking-[0.32em] text-white/70">
-                {artTypeLabels[artwork.type]}
-              </p>
-              <h1 className="mt-4 max-w-xl font-serif text-4xl md:text-5xl">
-                {artwork.title}
-              </h1>
-            </div>
+        <section className="grid gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(25rem,0.9fr)]">
+          <div className="aspect-[4/5] overflow-hidden rounded-[2rem] border border-border bg-muted shadow-sm">
+            <img
+              src={artwork.image}
+              alt={artwork.title}
+              className="h-full w-full object-cover object-center"
+            />
           </div>
 
-          <div className="space-y-6">
+          <div className="min-w-0 space-y-8">
             <div className="rounded-[2rem] border border-border bg-white/90 p-6 shadow-sm md:p-8">
               <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-                {artwork.medium}
+                {artTypeLabels[artwork.type]}
               </p>
               <h2 className="mt-3 font-serif text-3xl text-foreground">
                 {artwork.title}
@@ -137,22 +134,22 @@ const ArtDetailPage = () => {
               </a>
             </div>
 
-            <div className="rounded-[2rem] border border-border bg-white/90 p-6 shadow-sm">
+            <div className="min-w-0 rounded-[2rem] border border-border bg-white/90 p-6 shadow-sm md:p-8">
               <h2 className="font-serif text-2xl text-foreground">What to expect</h2>
-              <div className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
-                <p className="inline-flex items-start gap-3">
+              <ul className="mt-5 space-y-4 text-sm leading-7 text-muted-foreground">
+                <li className="flex min-w-0 items-start gap-3">
                   <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-primary" />
-                  Originals are packed carefully for safe delivery across India.
-                </p>
-                <p className="inline-flex items-start gap-3">
+                  <span className="min-w-0 break-words">Originals are packed carefully for safe delivery across India.</span>
+                </li>
+                <li className="flex min-w-0 items-start gap-3">
                   <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-primary" />
-                  Fine art prints are prepared after confirmation and usually take 5 to 7 days.
-                </p>
-                <p className="inline-flex items-start gap-3">
+                  <span className="min-w-0 break-words">Fine art prints are prepared after confirmation and usually take 5 to 7 days.</span>
+                </li>
+                <li className="flex min-w-0 items-start gap-3">
                   <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-primary" />
-                  Direct support is available if you need help choosing between an original and a print.
-                </p>
-              </div>
+                  <span className="min-w-0 break-words">Direct support is available if you need help choosing between an original and a print.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
@@ -189,17 +186,20 @@ const ArtDetailPage = () => {
               <Link
                 key={item.id}
                 to={`/art/${item.id}`}
-                className="overflow-hidden rounded-[2rem] border border-border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                className="group overflow-hidden rounded-[2rem] border border-border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
               >
-                <div className={`flex aspect-[4/3] items-end p-6 text-white ${item.paletteClassName}`}>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.32em] text-white/70">
-                      {artTypeLabels[item.type]}
-                    </p>
-                    <h3 className="mt-3 font-serif text-3xl">{item.title}</h3>
-                  </div>
+                <div className="aspect-[4/5] overflow-hidden bg-muted">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.02]"
+                  />
                 </div>
                 <div className="p-6">
+                  <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
+                    {artTypeLabels[item.type]}
+                  </p>
+                  <h3 className="mt-3 font-serif text-3xl text-foreground">{item.title}</h3>
                   <p className="text-sm leading-7 text-muted-foreground">
                     {item.description}
                   </p>
